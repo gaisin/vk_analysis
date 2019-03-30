@@ -1,8 +1,10 @@
 import vk_api
-import passwords
+import settings
 
-# Фунция на получение id группы/паблика
+
 def get_id(vk_session):
+	# Фунция на получение id группы/паблика
+
 	group_link = str(input('Введите ссылку на сообщество в формате https://vk.com/...: '))
 	vk = vk_session.get_api()
 
@@ -20,25 +22,30 @@ def get_id(vk_session):
 		else:
 			group_link = str(input('Некорректный ввод. Пожалуйста, введите ссылку на сообщество в следующем формате: https://vk.com/...: '))
 
-# Функция на получения списка постов по id группы/паблика
+
+def get_posts(tools, vk_session):
+	# Функция на получения списка постов по id группы/паблика
+
+	all_posts=[]
+	
+	posts = tools.get_all('wall.get', 100, {'owner_id': get_id(vk_session), 'filter': 'owner'})
+	for elements in posts["items"]:
+		all_posts.append(elements.get("text"))
+	print(all_posts)
+
+
+
 def main():
-	login, password = passwords.login, passwords.password
+	login, password = settings.LOGIN, settings.PASSWORD
 	vk_session = vk_api.VkApi(login, password)
 	try:
 		vk_session.auth(token_only=True)
 	except vk_api.AuthError as error_msg:
 		print(error_msg)
 		return
-
 	tools = vk_api.VkTools(vk_session)
+	get_posts(tools, vk_session)
 	
-	all_posts=[]
-	
-	posts = tools.get_all('wall.get', 100, {'owner_id': get_id(vk_session), 'filter': 'owner'})
-	for elements in posts["items"]:
-		all_posts.append(elements.get("text"))
-	print('\n\n'.join(all_posts))
-
 
 if __name__ == "__main__":
 	main()
