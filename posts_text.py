@@ -27,10 +27,11 @@ def get_posts(tools, vk_session):
 	# Функция на получения списка постов по id группы/паблика
 
 	all_posts=[]
-	
-	posts = tools.get_all('wall.get', 100, {'owner_id': get_id(vk_session), 'filter': 'owner'})
+	group_id = get_id(vk_session)
+	posts = tools.get_all('wall.get', 100, {'owner_id': group_id, 'filter': 'owner'})
 	for elements in posts["items"]:
-		all_posts.append(elements.get("text"))
+		post_id = elements.get("id")
+		all_posts.append(f'https://vk.com/wall{group_id}_{post_id}')
 	print(all_posts)
 
 
