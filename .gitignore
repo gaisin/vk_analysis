@@ -1,5 +1,7 @@
-/env
 settings.py
 vk_config.v2.json
 __pycache__
 .vscode
+password.py
+passwords.py
+env
