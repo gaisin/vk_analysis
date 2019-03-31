@@ -1,4 +1,6 @@
 import vk_api
+
+from get_comments import get_all_comments
 import settings
 
 
@@ -45,7 +47,10 @@ def main():
         return
     tools = vk_api.VkTools(vk_session)
     all_posts_url = get_posts(tools, vk_session)
-    print(all_posts_url)
+    
+    for url in all_posts_url:
+        all_comments = get_all_comments(url, tools)
+        print('\n'.join(all_comments))
 
     
 
