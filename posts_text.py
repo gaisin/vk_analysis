@@ -44,7 +44,9 @@ def main():
         print(error_msg)
         return
     tools = vk_api.VkTools(vk_session)
-    print(get_posts(tools, vk_session))
+    all_posts_url = get_posts(tools, vk_session)
+    print(all_posts_url)
+
     
 
 if __name__ == "__main__":
