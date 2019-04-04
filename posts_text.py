@@ -35,7 +35,6 @@ def get_posts(tools, vk_session):
         post_id = elements.get("id")
         text = elements.get("text")
         all_posts_url.append( ((f'https://vk.com/wall{group_id}_{post_id}'), text) )
-    print(all_posts_url)
     return all_posts_url
 
 
