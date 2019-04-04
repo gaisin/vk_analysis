@@ -33,7 +33,9 @@ def get_posts(tools, vk_session):
     posts = tools.get_all('wall.get', 100, {'owner_id': group_id, 'filter': 'owner'})
     for elements in posts["items"]:
         post_id = elements.get("id")
-        all_posts_url.append(f'https://vk.com/wall{group_id}_{post_id}')
+        text = elements.get("text")
+        all_posts_url.append( ((f'https://vk.com/wall{group_id}_{post_id}'), text) )
+    print(all_posts_url)
     return all_posts_url
 
 
@@ -48,7 +50,8 @@ def main():
     tools = vk_api.VkTools(vk_session)
     all_posts_url = get_posts(tools, vk_session)
     
-    for url in all_posts_url:
+    for urls in all_posts_url:
+        url = urls[0]
         all_comments = get_all_comments(url, tools)
         print('\n'.join(all_comments))
 
