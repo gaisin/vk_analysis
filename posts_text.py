@@ -1,4 +1,6 @@
 import vk_api
+
+from get_comments import get_all_comments
 import settings
 
 
@@ -31,7 +33,7 @@ def get_posts(tools, vk_session):
     posts = tools.get_all('wall.get', 100, {'owner_id': group_id, 'filter': 'owner'})
     for elements in posts["items"]:
         post_id = elements.get("id")
-        all_posts.append(f'https://vk.com/wall{group_id}_{post_id}')
+        all_posts_url.append(f'https://vk.com/wall{group_id}_{post_id}')
     return all_posts_url
 
 
@@ -44,7 +46,12 @@ def main():
         print(error_msg)
         return
     tools = vk_api.VkTools(vk_session)
-    get_posts(tools, vk_session)
+    all_posts_url = get_posts(tools, vk_session)
+    
+    for url in all_posts_url:
+        all_comments = get_all_comments(url, tools)
+        print('\n'.join(all_comments))
+
     
 
 if __name__ == "__main__":
