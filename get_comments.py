@@ -8,10 +8,13 @@ def get_all_comments(input_url, tools):
     all_comments =[]
     
     owner_id, post_id = input_url[19:].split('_')
-    comments = tools.get_all('wall.getComments',  100, {'owner_id' : owner_id, 'post_id' : post_id})
+    comments = tools.get_all('wall.getComments',  100, {'owner_id' : owner_id, 'post_id' : post_id, 'need_likes' : 1})
     
     for comment in comments['items']:
-        all_comments.append(comment['text'])
+        text = comment['text']
+        likes_count = comment['likes']['count']
+        comment_id = comment['id']
+        all_comments.append( (input_url, comment_id, text, likes_count) )
     
     return all_comments
 
@@ -27,6 +30,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
