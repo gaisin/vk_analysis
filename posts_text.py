@@ -38,7 +38,7 @@ def get_posts(tools, vk_session):
         post_id = elements.get("id")
         text = elements.get("text")
         all_posts_url.append( (group_id, (f'https://vk.com/wall{group_id}_{post_id}'), text) )
-        save_data_to_post_data(all_posts_url)
+    save_data_to_post_data(all_posts_url)
     return all_posts_url
 
 
@@ -60,7 +60,6 @@ def main():
 def save_group_id_to_group(group_data):
     # Функция сохранения group_id в таблице group
     session = Session()
-    group = Group()
     c1 = Group(group_id = group_data)
     session.add(c1)
     session.commit()
@@ -69,8 +68,6 @@ def save_data_to_post_data(all_posts_url):
     # Функция сохранения данных в таблице post_data
     session = Session()
     for elements in all_posts_url:
-        session = Session()
-        post_data = Post_data()
         c1 = Post_data(
             group_id = elements[0],
             post_id = elements[1],
@@ -83,8 +80,6 @@ def save_data_to_comment_data(all_comments):
     # Функция сохранения данных в таблице comment_data
     session = Session()
     for elements in all_comments:
-        session = Session()
-        comment_data = Comment_data()
         c1 = Comment_data(
             post_id = elements[0],
             comment_id = elements[1],
@@ -92,7 +87,7 @@ def save_data_to_comment_data(all_comments):
             likes = elements[3]
         )
         session.add(c1)
-        session.commit()
+    session.commit()
 
 if __name__ == "__main__":
     main()

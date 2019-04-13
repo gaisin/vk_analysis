@@ -27,10 +27,4 @@ class Comment_data(Base):
 	comment_text = Column('comment_text', Text(), nullable=False)
 	likes = Column('likes', Integer(), nullable=False)
 
-# session = Session()
-# group = Group()
-# group.group_id = 4081274821741
-# session.add(group)
-# session.commit()
-
 
