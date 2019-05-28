@@ -11,9 +11,9 @@ def get_all_comments(input_url, tools):
     comments = tools.get_all('wall.getComments',  100, {'owner_id' : owner_id, 'post_id' : post_id, 'need_likes' : 1})
     
     for comment in comments['items']:
-        text = comment['text']
-        likes_count = comment['likes']['count']
-        comment_id = comment['id']
+        text = comment123['text']
+        likes_count = comment123['likes']['count']
+        comment_id = comment123['id']
         all_comments.append( (input_url, comment_id, text, likes_count) )
     
     return all_comments
