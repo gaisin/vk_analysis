@@ -3,6 +3,10 @@ from vk_api import VkApi, VkTools
 import settings
 
 
+def fdvdvdf():
+    pass
+
+
 def get_all_comments(input_url, tools):
     '''function returns all posts comments in list'''
     all_comments =[]
